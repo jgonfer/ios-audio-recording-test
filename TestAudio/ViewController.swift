@@ -94,8 +94,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func startRecording() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
 
+        //MARK: Codecs to test
+        // - kAudioFormatMPEG4AAC
+        // - kAudioFormatLinearPCM
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 8000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
