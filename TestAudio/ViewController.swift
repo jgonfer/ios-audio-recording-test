@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import AdSupport
 
 class ViewController: UIViewController, AVAudioRecorderDelegate {
     var recordButton: UIButton!
@@ -18,8 +19,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         
         UIApplication.shared.beginReceivingRemoteControlEvents()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        printIDFA()
         
         recordingSession = AVAudioSession.sharedInstance()
         setupNotifications()
@@ -49,6 +53,46 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                        name: AVAudioSession.interruptionNotification,
                        object: nil)
     }
+    
+    func printIDFA() {
+        print(ASIdentifierManager.shared().advertisingIdentifierIfPresent ?? "N/A")
+    }
+    
+    func loadRecordingUI() {
+        recordButton = UIButton(frame: CGRect(x: 64, y: 64, width: 256, height: 64))
+        recordButton.setTitle("Tap to Record", for: .normal)
+        recordButton.setTitleColor(.red, for: .normal)
+        recordButton.backgroundColor = .black
+        recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+        view.addSubview(recordButton)
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func finishRecording(success: Bool) {
+        audioRecorder.stop()
+        audioRecorder = nil
+        print("Finish Recording: \(success)")
+        if success {
+            recordButton.setTitle("Tap to Re-record", for: .normal)
+        } else {
+            recordButton.setTitle("Tap to Record", for: .normal)
+            // recording failed :(
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+    
+    
+    // MARK: Selector methods
     
     @objc func handleInterruption(notification: Notification) {
         guard let userInfo = notification.userInfo,
@@ -81,15 +125,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    func loadRecordingUI() {
-        recordButton = UIButton(frame: CGRect(x: 64, y: 64, width: 256, height: 64))
-        recordButton.setTitle("Tap to Record", for: .normal)
-        recordButton.setTitleColor(.red, for: .normal)
-        recordButton.backgroundColor = .black
-        recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
-        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-        view.addSubview(recordButton)
+    @objc func recordTapped() {
+        if audioRecorder == nil {
+            startRecording()
+        } else {
+            finishRecording(success: true)
+        }
     }
+    
+    
+    // MARK: IBAction methods
     
     @IBAction func startRecording() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
@@ -111,37 +156,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
 
             recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
-            finishRecording(success: false)
-        }
-    }
-    
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
-    func finishRecording(success: Bool) {
-        audioRecorder.stop()
-        audioRecorder = nil
-        print("Finish Recording: \(success)")
-        if success {
-            recordButton.setTitle("Tap to Re-record", for: .normal)
-        } else {
-            recordButton.setTitle("Tap to Record", for: .normal)
-            // recording failed :(
-        }
-    }
-    
-    @objc func recordTapped() {
-        if audioRecorder == nil {
-            startRecording()
-        } else {
-            finishRecording(success: true)
-        }
-    }
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if !flag {
             finishRecording(success: false)
         }
     }

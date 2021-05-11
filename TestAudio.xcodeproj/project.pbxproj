@@ -14,6 +14,7 @@
 		1DBD49D725C02B6200C69F27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DBD49D525C02B6200C69F27 /* LaunchScreen.storyboard */; };
 		1DBD49E225C02B6300C69F27 /* TestAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD49E125C02B6300C69F27 /* TestAudioTests.swift */; };
 		1DBD49ED25C02B6300C69F27 /* TestAudioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD49EC25C02B6300C69F27 /* TestAudioUITests.swift */; };
+		1DC303A6264AB391002ADEFD /* ASIdentifierManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC303A5264AB391002ADEFD /* ASIdentifierManager+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		1DBD49E825C02B6300C69F27 /* TestAudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestAudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DBD49EC25C02B6300C69F27 /* TestAudioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAudioUITests.swift; sourceTree = "<group>"; };
 		1DBD49EE25C02B6300C69F27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DC303A5264AB391002ADEFD /* ASIdentifierManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASIdentifierManager+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		1DBD49C925C02B6100C69F27 /* TestAudio */ = {
 			isa = PBXGroup;
 			children = (
+				1DC303A4264AB37F002ADEFD /* Utils */,
 				1DBD49CA25C02B6100C69F27 /* AppDelegate.swift */,
 				1DBD49CE25C02B6100C69F27 /* ViewController.swift */,
 				1DBD49D025C02B6100C69F27 /* Main.storyboard */,
@@ -123,6 +126,14 @@
 				1DBD49EE25C02B6300C69F27 /* Info.plist */,
 			);
 			path = TestAudioUITests;
+			sourceTree = "<group>";
+		};
+		1DC303A4264AB37F002ADEFD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1DC303A5264AB391002ADEFD /* ASIdentifierManager+Ext.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DBD49CF25C02B6100C69F27 /* ViewController.swift in Sources */,
+				1DC303A6264AB391002ADEFD /* ASIdentifierManager+Ext.swift in Sources */,
 				1DBD49CB25C02B6100C69F27 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,7 +451,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jgonfer.TestAudio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jgonfer.TestAudio8k;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -458,7 +470,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jgonfer.TestAudio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jgonfer.TestAudio8k;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
